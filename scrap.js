@@ -6,5 +6,17 @@ var cheerio = require("cheerio");
 var open = require("open");
 var scrap = require("./sneaker/scrap.js");
 
+var starter = setInterval(function(){
+    var now = new Date();
+    console.log( now.getSeconds() );
+    if(now.getSeconds()==11){
+        clearInterval(starter);
+        scrapStart();
+    };
+},1000);
 
-scrap.getScrap();
+function scrapStart(){
+    setInterval(function(){
+        scrap.getScrap();
+    },60000);
+};
