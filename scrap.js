@@ -18,6 +18,11 @@ var starter = setInterval(function(){
 
 function scrapStart(){
     setInterval(function(){
+        console.log( getTimeStamp() );
         scrap.getScrap();
     },60000);
 };
+function getTimeStamp() {
+    var now = new Date();
+    return now.getFullYear()+(((now.getMonth()+1)<10) ? "0"+(now.getMonth()+1) : (now.getMonth()+1))+((now.getDate()<10) ? "0"+now.getDate() : now.getDate())+"_"+(now.getHours() + '' +((now.getMinutes() < 10)? ("0" + now.getMinutes()): (now.getMinutes())) + '' +((now.getSeconds() < 10)? ("0" + now.getSeconds()): (now.getSeconds())))+"";
+}
