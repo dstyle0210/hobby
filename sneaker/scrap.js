@@ -28,7 +28,7 @@ module.exports = {
                 var price = ( s.clean($(this).find(".gridwall-item__price").text()) ).split(" ");
                 var id = ( $(this).find(".global_gridwall_container>a>img").attr("id") ).split("_");
                 var soldout = $(this).find(".sold_out").text();
-                sneaker.push({"title":s.clean(title),"price":price[0],"sale":price[1],"NK":id[1],"style":id[2],"soldout":soldout});
+                sneaker.push({"title":s.clean(title),"price":price[0],"sale":((price[1])?price[1]:"null"),"NK":id[1],"style":id[2],"soldout":soldout});
             });
             return sneaker;
         };
@@ -43,7 +43,7 @@ module.exports = {
         };
 
         // 리스트 호출
-        var nike = (code) => "http://www.nike.co.kr/display/getMoreGoodsAjaxNewGrid.lecs?displayNo="+code+"&autoPageIndex=";
+        var nike = function(code){return "http://www.nike.co.kr/display/getMoreGoodsAjaxNewGrid.lecs?displayNo="+code+"&autoPageIndex=";};
         var scrapPromises = [];
         function callScrapPromise(code,name){
             scrapPromises[name] = [];
@@ -52,16 +52,57 @@ module.exports = {
             };
             Promise.all(scrapPromises[name]).then(function(values){
                 var json = bodyToJson( values.join("") );
-                fs.writeFileSync("./item_"+name+".json",JSON.stringify(json));
-                fs.writeFileSync("./item_"+name+".html",htmlTemplate(json));
+                if(json.length){
+                    // fs.writeFileSync("./item_"+name+".json",JSON.stringify(json));
+                    fs.readFile("./item_"+name+"_oldList.json","utf8",function(err,data){
+                        if(err){
+                            console.log("올드 없음");
+                            makeOldList(json,name);
+                            return;
+                        };
+                        var oldList = [];
+                        var newList = [];
+
+                        _.each(JSON.parse(data),function(item){
+                            oldList.push(item.style+"__"+item.soldout);
+                        });
+                        _.each(json,function(item2){
+                            newList.push(item2.style+"__"+item2.soldout);
+                        });
+
+                        var diffTempList = _.difference(newList,oldList);
+                        var diffList = [];
+                        if(diffTempList.length){
+                            _.each(diffTempList,function(diffitem){
+                                diffList.push( _.find(json,function(item){
+                                    return (item.style+"__"+item.soldout)==diffitem;
+                                }) );
+                            });
+                            fs.writeFileSync("./diff_"+name+".html",htmlTemplate(diffList) );
+                            makeOldList(json,name);
+                            open("./diff_"+name+".html");
+                        };
+                    })
+                }
             });
         };
 
+        function makeOldList(json,name){
+            fs.writeFileSync("./item_"+name+"_oldList.json",JSON.stringify(json));
+        };
 
-        callScrapPromise("NK1A49A01","men");
-        callScrapPromise("NK1A50A02","women");
-        callScrapPromise("NK1A49A01&brndList=01","jordan");
-        callScrapPromise("NK1A60A01A04","lab");
 
+        setTimeout(function(){
+            callScrapPromise("NK1A49A01","men");
+        },1000);
+        setTimeout(function(){
+            callScrapPromise("NK1A50A02","women");
+        },2000);
+        setTimeout(function(){
+            callScrapPromise("NK1A49A01&brndList=01","jordan");
+        },3000);
+        setTimeout(function(){
+            callScrapPromise("NK1A60A01A04","lab");
+        },4000);
     }
 };

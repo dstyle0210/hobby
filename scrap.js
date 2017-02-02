@@ -6,10 +6,11 @@ var cheerio = require("cheerio");
 var open = require("open");
 var scrap = require("./sneaker/scrap.js");
 
+scrap.getScrap();
 var starter = setInterval(function(){
     var now = new Date();
     console.log( now.getSeconds() );
-    if(now.getSeconds()==11){
+    if(now.getSeconds()==51){
         clearInterval(starter);
         scrapStart();
     };
