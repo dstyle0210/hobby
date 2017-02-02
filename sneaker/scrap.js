@@ -28,15 +28,18 @@ module.exports = {
                 var price = ( s.clean($(this).find(".gridwall-item__price").text()) ).split(" ");
                 var id = ( $(this).find(".global_gridwall_container>a>img").attr("id") ).split("_");
                 var soldout = $(this).find(".sold_out").text();
-                sneaker.push({"title":s.clean(title),"price":price[0],"sale":((price[1])?price[1]:"null"),"NK":id[1],"style":id[2],"soldout":soldout});
+                var src = $(this).find(".global_gridwall_img img").attr("src");
+                sneaker.push({"title":s.clean(title),"price":price[0],"sale":((price[1])?price[1]:"null"),"NK":id[1],"style":id[2],"soldout":soldout,"src":src});
             });
             return sneaker;
         };
 
         function htmlTemplate(json){
-            var tmp = "<ul>\n";
+            var tmp = "<link rel='stylesheet' href='./sneaker/style.css'/><ul>\n";
             _.each(json,function(item,idx){
-                tmp += "<li><a href='http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo="+item.NK+"&colorOptionValueCode="+item.style+"' target='_blank'>["+item.soldout+"]"+item.title+","+item.price+","+item.NK+","+item.style+"</a></li>";
+                tmp += "<li><a href='http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo="+item.NK+"&colorOptionValueCode="+item.style+"' target='_blank'>" +
+                    "<div><img src='"+item.src+"' /></div>" +
+                    "["+item.soldout+"]"+item.title+"<br />"+item.price+"<br />"+item.NK+"<br />"+item.style+"</a></li>";
             });
             tmp += "</ul>";
             return tmp;
@@ -52,11 +55,12 @@ module.exports = {
             };
             Promise.all(scrapPromises[name]).then(function(values){
                 var json = bodyToJson( values.join("") );
+                console.log(name+" 총갯수 : "+json.length);
                 if(json.length){
                     // fs.writeFileSync("./item_"+name+".json",JSON.stringify(json));
                     fs.readFile("./item_"+name+"_oldList.json","utf8",function(err,data){
                         if(err){
-                            console.log("올드 없음");
+                            console.log(name+" 올드 없음");
                             makeOldList(json,name);
                             return;
                         };
@@ -72,6 +76,7 @@ module.exports = {
 
                         var diffTempList = _.difference(newList,oldList);
                         var diffList = [];
+                        console.log(name+" 달라진 갯수 : "+diffTempList.length);
                         if(diffTempList.length){
                             _.each(diffTempList,function(diffitem){
                                 diffList.push( _.find(json,function(item){
