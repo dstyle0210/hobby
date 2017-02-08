@@ -16,7 +16,8 @@
     function naverSignInCallback() {
         alert(naver_id_login.getProfileData('email'));
         opener.location = "/hobby/nkCalendar/addCalendar.html";
-    }
+        self.close();
+    };
 </script>
 </body>
 </html>
