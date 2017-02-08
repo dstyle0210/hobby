@@ -15,6 +15,7 @@
     // 네이버 사용자 프로필 조회 이후 프로필 정보를 처리할 callback function
     function naverSignInCallback() {
         alert(naver_id_login.getProfileData('email'));
+        opener.location = "/hobby/nkCalendar/addCalendar.html";
     }
 </script>
 </body>
