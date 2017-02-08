@@ -6,10 +6,11 @@ var cheerio = require("cheerio");
 var open = require("open");
 var scrap = require("./sneaker/scrap.js");
 
+scrap.getScrap();
 var starter = setInterval(function(){
     var now = new Date();
     console.log( now.getSeconds() );
-    if(now.getSeconds()==11){
+    if(now.getSeconds()==51){
         clearInterval(starter);
         scrapStart();
     };
@@ -17,6 +18,11 @@ var starter = setInterval(function(){
 
 function scrapStart(){
     setInterval(function(){
+        console.log( getTimeStamp() );
         scrap.getScrap();
     },60000);
 };
+function getTimeStamp() {
+    var now = new Date();
+    return now.getFullYear()+(((now.getMonth()+1)<10) ? "0"+(now.getMonth()+1) : (now.getMonth()+1))+((now.getDate()<10) ? "0"+now.getDate() : now.getDate())+"_"+(now.getHours() + '' +((now.getMinutes() < 10)? ("0" + now.getMinutes()): (now.getMinutes())) + '' +((now.getSeconds() < 10)? ("0" + now.getSeconds()): (now.getSeconds())))+"";
+}
