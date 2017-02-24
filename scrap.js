@@ -10,7 +10,7 @@ scrap.getScrap();
 var starter = setInterval(function(){
     var now = new Date();
     console.log( now.getSeconds() );
-    if(now.getSeconds()==51){
+    if(now.getSeconds()%15==6){
         clearInterval(starter);
         scrapStart();
     };
@@ -20,7 +20,7 @@ function scrapStart(){
     setInterval(function(){
         console.log( getTimeStamp() );
         scrap.getScrap();
-    },60000);
+    },15000);
 };
 function getTimeStamp() {
     var now = new Date();
