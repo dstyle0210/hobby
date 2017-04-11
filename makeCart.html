@@ -1,0 +1,22 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Document</title>
+    <script type="text/javascript" src="http://m.nike.co.kr/mobile/js/jquery-1.7.2.min.js" ></script>
+</head>
+<body>
+<input type="text" name="" id="nk" />
+<button onclick="getCart();">구하기</button>
+<div id="result"></div>
+<script>
+    function getCart(){
+        var item = {NK:"NK"+$("#nk").val()}
+        $("#result").html("<a href='http://lecs.nike.co.kr/cart/createCart.lecs?goodsNo="+item.NK+"&itemSize=250&itemNo="+item.NK+"001&orderQuantity=1&connerNo=&deliveryHopeAdayMn=&deliveryExpensePolicyNo=503706&cartSectionCode=10&inflowDisposalNoSectionCode=10&inflowDisposalNo=NK1A49A01A04&masterDisposalNo=NK1A49A01A04&packageGoodsYN=N&packageGoodsNo=&packageGoodsCompulsoryQty=0' target='_blank'>장바구니</a><br />");
+    };
+</script>
+
+
+
+</body>
+</html>
