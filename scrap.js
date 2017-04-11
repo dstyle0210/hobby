@@ -9,6 +9,8 @@ var scrap = require("./sneaker/scrap.js");
 // scrap.getScrap();
 
 var starter = function(){
+    scrap.getScrap();
+
     var url ="http://www.nike.co.kr/display/getMoreGoodsAjaxNewGrid.lecs?displayNo=NK1A49A01&autoPageIndex=1";
     var date;
     request({url:url},function(err,res,body){
@@ -49,6 +51,7 @@ var starter = function(){
 };
 starter();
 function scrapStart(){
+    scrap.getScrap();
     setInterval(function(){
         console.log( getTimeStamp() );
         scrap.getScrap();

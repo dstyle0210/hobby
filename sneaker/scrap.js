@@ -35,13 +35,13 @@ module.exports = {
         };
 
         function htmlTemplate(json){
-            var tmp = "<link rel='stylesheet' href='./sneaker/style.css'/><ul>\n";
+            var tmp = "<html><head><meta http-equiv='Content-Type' content='text/html;charset=UTF-8' /><link rel='stylesheet' href='./sneaker/style.css'/></head><body><ul>\n";
             _.each(json,function(item,idx){
                 tmp += "<li><a href='http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo="+item.NK+"&colorOptionValueCode="+item.style+"' target='_blank'>" +
                     "<div><img src='"+item.src+"' /></div>" +
                     "["+item.soldout+"]"+item.title+"<br />"+item.price+"<br />"+item.NK+"<br />"+item.style+"</a></li>";
             });
-            tmp += "</ul>";
+            tmp += "</ul></body></html>";
             return tmp;
         };
 
