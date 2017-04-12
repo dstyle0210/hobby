@@ -39,8 +39,12 @@ module.exports = {
             _.each(json,function(item,idx){
                 tmp += "<li><a href='http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo="+item.NK+"&colorOptionValueCode="+item.style+"' target='_blank'>" +
                     "<div><img src='"+item.src+"' /></div>" +
-                    "["+item.soldout+"]"+item.title+"<br />"+item.price+"<br />"+item.NK+"<br />"+item.style+"</a></li>";
+                    "["+item.soldout+"]"+item.title+"<br />"+item.price+"<br />"+item.NK+"<br />"+item.style+"</a><br />" +
+                    "<a href='http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo="+item.NK+"&itemColor="+item.style+"&goodsSalePrice=0&source=&orderNo=&orderDetailSn=' target='_blank'>재고확인</a><br />" +
+                    "<a href='http://lecs.nike.co.kr/cart/createCart.lecs?goodsNo="+item.NK+"&itemSize=250&itemNo="+item.NK+"001&orderQuantity=1&connerNo=&deliveryHopeAdayMn=&deliveryExpensePolicyNo=503706&cartSectionCode=10&inflowDisposalNoSectionCode=10&inflowDisposalNo=NK1A49A01A04&masterDisposalNo=NK1A49A01A04&packageGoodsYN=N&packageGoodsNo=&packageGoodsCompulsoryQty=0' target='_blank'>장바구니</a><br />" +
+                    "</li>";
             });
+            // http://lecs.nike.co.kr/cart/createCart.lecs?goodsNo=NK31087689&itemSize=250&itemNo=NK31087689001&orderQuantity=1&connerNo=&deliveryHopeAdayMn=&deliveryExpensePolicyNo=503706&cartSectionCode=10&inflowDisposalNoSectionCode=10&inflowDisposalNo=NK1A49A01A04&masterDisposalNo=NK1A49A01A04&packageGoodsYN=N&packageGoodsNo=&packageGoodsCompulsoryQty=0
             tmp += "</ul></body></html>";
             return tmp;
         };
