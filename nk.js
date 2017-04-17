@@ -9,8 +9,6 @@ var nk = require("./sneaker/nk.js");
 // scrap.getScrap();
 
 var getNK = function() {
-    console.log("a");
-    nk.getNK(31087001,31088000);
+    nk.getNK(31060000,31069999);
 };
 getNK();
-
