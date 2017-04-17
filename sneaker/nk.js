@@ -16,6 +16,7 @@ module.exports = {
             request({url:url},function(err,res,body){
                 if(err){
                     console.log("NK"+now+" 접속에러");
+                    nextPage();
                 };
 
                 var json = {nk:"NK"+nk_code};
