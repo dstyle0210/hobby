@@ -22,7 +22,7 @@ module.exports = {
 
                 json.name = (body.match(/(<title>).+(<\/title>)/)[0]);
                 json.name = json.name.replace(/(<title>)(.+)(&nbsp;&nbsp;Nike 나이키닷컴<\/title>)/g,"$2");
-                if(json.title=="<title>Nike 나이키닷컴</title>"){
+                if(json.name=="<title>Nike 나이키닷컴</title>"){
                     console.log("NK"+now+" 상품없음");
                     nextPage();
                 }else{
