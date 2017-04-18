@@ -17,30 +17,34 @@ module.exports = {
                 if(err){
                     console.log("NK"+now+" 접속에러");
                     nextPage();
+                    return;
                 };
-
+                // NK값 구하기
                 var json = {nk:"NK"+nk_code};
 
+                // 상품명 구하기
                 json.name = (body.match(/(<title>).+(<\/title>)/)[0]);
                 json.name = json.name.replace(/(<title>)(.+)(&nbsp;&nbsp;Nike 나이키닷컴<\/title>)/g,"$2");
+
                 if(json.name=="<title>Nike 나이키닷컴</title>"){
                     console.log("NK"+now+" 상품없음");
                     nextPage();
-                }else{
-                    var html = body.replace(/\r?\n|\r|\t|\s/g,"");
-
-                    // 코드값 구하기
-                    json.style = ((html.match(/(picture:"http).+(80\.png"})/))[0]).match(/[0-9A-Z]{6}/)[0];
-
-                    // 가격 구하기
-                    json.price = (html.match(/<divid="zoomGoodsPrice"class="price">[0-9,]{0,8}원<\/div>/)[0]).match(/[0-9,]{0,8}원/)[0];
-
-                    // 스타일들 구하기
-                    var styelsReg = new RegExp(json.style+"\-[0-9]{3}","g");
-                    json.styles = (_.union(html.match(styelsReg))).join(",");
-
-                    setSpreadSheet(json);
+                    return;
                 };
+
+                var html = body.replace(/\r?\n|\r|\t|\s/g,"");
+
+                // 코드값 구하기
+                json.style = ((html.match(/(picture:"http).+(80\.png"})/))[0]).match(/[0-9A-Z]{6}/)[0];
+
+                // 가격 구하기
+                json.price = (html.match(/<divid="zoomGoodsPrice"class="price">[0-9,]{0,8}원<\/div>/)[0]).match(/[0-9,]{0,8}원/)[0];
+
+                // 스타일들 구하기
+                var styelsReg = new RegExp(json.style+"\-[0-9]{3}","g");
+                json.styles = (_.union(html.match(styelsReg))).join(",");
+
+                setSpreadSheet(json);
             });
         };
 
