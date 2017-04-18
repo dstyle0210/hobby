@@ -53,6 +53,7 @@ module.exports = {
 
                 // 카테고리 구하기
                 json.category = scripTag(html,(new RegExp('(<divclass="loc">)(.+)(<\/div><divclass="price">)','g')));
+                json.category = json.category.replace(/&nbsp;/g,">");
                 // console.log(json);
 
                 // 스타일들 구하기
