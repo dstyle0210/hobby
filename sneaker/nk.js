@@ -51,7 +51,7 @@ module.exports = {
                 // 가격 구하기
                 json.price = scripTag(html,(new RegExp('(<divid="zoomGoodsPrice"class="price">)([0-9,]{0,8}원)(<\/div>)','g')));
 
-                // 카테고리 구하기
+                // 카테고리 구하기 test
                 json.category = scripTag(html,(new RegExp('(<divclass="loc">)(.+)(<\/div><divclass="price">)','g')));
                 json.category = json.category.replace(/&nbsp;/g,">");
                 // console.log(json);
