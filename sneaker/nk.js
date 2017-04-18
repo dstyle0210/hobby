@@ -19,11 +19,22 @@ module.exports = {
                     nextPage();
                     return;
                 };
+                // fs.writeFileSync("./nk.html",body );
+
                 // NK값 구하기
                 var json = {nk:"NK"+nk_code};
 
+                json.name = (body.match(/(<title>).*(<\/title>)/)[0]);
+
+                // 단품정보없음 == 앞으로 들어올꺼란 이야기
+                if(json.name=="<title></title>"){
+                    console.log("NK"+now+" 단품정보없음");
+                    json.name = "단품정보없음";
+                    setSpreadSheet(json);
+                    return;
+                };
+
                 // 상품명 구하기
-                json.name = (body.match(/(<title>).+(<\/title>)/)[0]);
                 json.name = json.name.replace(/(<title>)(.+)(&nbsp;&nbsp;Nike 나이키닷컴<\/title>)/g,"$2");
 
                 if(json.name=="<title>Nike 나이키닷컴</title>"){
@@ -44,7 +55,9 @@ module.exports = {
                 var styelsReg = new RegExp(json.style+"\-[0-9]{3}","g");
                 json.styles = (_.union(html.match(styelsReg))).join(",");
 
+                // console.log(json);
                 setSpreadSheet(json);
+
             });
         };
 
