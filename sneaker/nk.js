@@ -49,7 +49,11 @@ module.exports = {
                 json.style = ((html.match(/(picture:"http).+(80\.png"})/))[0]).match(/[0-9A-Z]{6}/)[0];
 
                 // 가격 구하기
-                json.price = (html.match(/<divid="zoomGoodsPrice"class="price">[0-9,]{0,8}원<\/div>/)[0]).match(/[0-9,]{0,8}원/)[0];
+                json.price = scripTag(html,(new RegExp('(<divid="zoomGoodsPrice"class="price">)([0-9,]{0,8}원)(<\/div>)','g')));
+
+                // 카테고리 구하기
+                json.category = scripTag(html,(new RegExp('(<divclass="loc">)(.+)(<\/div><divclass="price">)','g')));
+                // console.log(json);
 
                 // 스타일들 구하기
                 var styelsReg = new RegExp(json.style+"\-[0-9]{3}","g");
@@ -70,6 +74,7 @@ module.exports = {
                 price:json.price,
                 style:json.style,
                 styles:json.styles,
+                category:json.category
             });
             request({
                 url:"https://script.google.com/macros/s/AKfycbxVPxSiiB_RUyPMdXP6P5rmjp-hIlfoQkVr6DNNPDw1C7Z8zAo/exec",
@@ -98,6 +103,10 @@ module.exports = {
             }else{
                 console.log("종료");
             };
+        };
+
+        function scripTag(code,reg){
+            return (code.match(reg)[0]).replace(reg,"$2");
         };
 
         getPage(now);
