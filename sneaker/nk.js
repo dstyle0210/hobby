@@ -19,7 +19,7 @@ module.exports = {
                     nextPage();
                     return;
                 };
-                // fs.writeFileSync("./nk.html",body );
+                // fs.writeFileSync("./nk.html",body );return;
 
                 // NK값 구하기
                 var json = {nk:"NK"+nk_code};
@@ -49,10 +49,10 @@ module.exports = {
                 json.style = ((html.match(/(picture:"http).+(80\.png"})/))[0]).match(/[0-9A-Z]{6}/)[0];
 
                 // 가격 구하기
-                json.price = scripTag(html,(new RegExp('(<divid="zoomGoodsPrice"class="price">)([0-9,]{0,8}원)(<\/div>)','g')));
+                json.price = scripTag(html,(new RegExp('(<divid="zoomGoodsPrice"class="price">)([0-9,]{0,9}원)(<\/div>)','g')),"가격");
 
                 // 카테고리 구하기 test
-                json.category = scripTag(html,(new RegExp('(<divclass="loc">)(.+)(<\/div><divclass="price">)','g')));
+                json.category = scripTag(html,(new RegExp('(<divclass="loc">)(.+)(<\/div><divclass="price">)','g')),"카테고리");
                 json.category = json.category.replace(/&nbsp;/g,">");
                 // console.log(json);
 
@@ -106,7 +106,10 @@ module.exports = {
             };
         };
 
-        function scripTag(code,reg){
+        function scripTag(code,reg,desc){
+            var m = code.match(reg);
+            console.log(m);
+            if(m==null) return desc+"없음";
             return (code.match(reg)[0]).replace(reg,"$2");
         };
 
