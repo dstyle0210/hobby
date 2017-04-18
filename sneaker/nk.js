@@ -108,9 +108,8 @@ module.exports = {
 
         function scripTag(code,reg,desc){
             var m = code.match(reg);
-            console.log(m);
             if(m==null) return desc+"없음";
-            return (code.match(reg)[0]).replace(reg,"$2");
+            return (m[0]).replace(reg,"$2");
         };
 
         getPage(now);
