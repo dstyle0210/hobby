@@ -49,7 +49,7 @@ var starter = function(){
         */
     });
 };
-starter();
+// starter();
 function scrapStart(){
     scrap.getScrap();
     setInterval(function(){
@@ -57,7 +57,7 @@ function scrapStart(){
         scrap.getScrap();
     },15000);
 };
-
+scrapStart();
 
 /*
 
