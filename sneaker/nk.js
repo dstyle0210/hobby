@@ -78,6 +78,7 @@ module.exports = {
                 category:json.category
             });
             request({
+                rejectUnauthorized: false,
                 url:"https://script.google.com/macros/s/AKfycbxVPxSiiB_RUyPMdXP6P5rmjp-hIlfoQkVr6DNNPDw1C7Z8zAo/exec",
                 method:"POST",
                 headers: {
@@ -88,10 +89,12 @@ module.exports = {
             },function(err,res,body){
                 if(err){
                     console.log("저장실패");
+                    console.log(err);
                 }else{
                     console.log("저장성공 : "+json.nk);
+                    nextPage();
                 };
-                nextPage();
+
             });
         };
 
