@@ -3,8 +3,6 @@ var _ = require("lodash");
 var request = require("request");
 var cheerio = require("cheerio");
 var open = require("open");
-var ps = require("ps-node");
-var browser = require('detect-browser');
 
 // http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo=NK31085745&itemColor=899473-002&goodsSalePrice=0&source=&orderNo=&orderDetailSn=
 
