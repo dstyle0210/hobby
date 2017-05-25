@@ -4,8 +4,7 @@ var request = require("request");
 var cheerio = require("cheerio");
 var open = require("open");
 
-// http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo=NK31085745&itemColor=899473-002&goodsSalePrice=0&source=&orderNo=&orderDetailSn=
-
+// http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo=NK31085980&itemColor=921948-100&goodsSalePrice=0&source=&orderNo=&orderDetailSn=
 module.exports = {
     getSize: function (nk,style,size) {
         var url = "http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo="+nk+"&itemColor="+style+"&goodsSalePrice=0&source=&orderNo=&orderDetailSn=";

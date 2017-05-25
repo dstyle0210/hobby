@@ -67,7 +67,7 @@ module.exports = {
         };
 
         function setSpreadSheet(json){
-            console.log("NK"+now+" 저장시작");
+            console.log("NK"+now+" 저장시작 : "+json.name);
             // var data = JSON.stringify();
             var data = querystring.stringify({
                 nk:json.nk,
@@ -77,6 +77,8 @@ module.exports = {
                 styles:json.styles,
                 category:json.category
             });
+
+
             request({
                 rejectUnauthorized: false,
                 url:"https://script.google.com/macros/s/AKfycbxVPxSiiB_RUyPMdXP6P5rmjp-hIlfoQkVr6DNNPDw1C7Z8zAo/exec",
