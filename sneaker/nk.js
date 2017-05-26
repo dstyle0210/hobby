@@ -8,8 +8,14 @@ var querystring = require('querystring');
 module.exports = {
     getNK: function (sn,en) {
         console.log(sn+","+en);
-        var now = sn;
-        var end = en;
+
+        if(typeof sn=="Array"){
+
+        }else{
+            var now = sn;
+            var end = en;
+        };
+
         function getPage(nk_code){
             console.log("NK"+now+" 로딩시작");
             var url =  "http://www.nike.co.kr/goods/showGoodsDetail.lecs?goodsNo=NK"+nk_code;
