@@ -1,7 +1,7 @@
 var RD = require("./sneaker/ready.js");
 var NK = require("./sneaker/getSneakerInfo.js");
 
-RD.getNK("ready",function(sheetData){
+RD.getNK("nosale",function(sheetData){
 
     function getNK(idx){
         if(!sheetData[idx].nk){return;}

@@ -1,12 +1,13 @@
 var fs = require('fs');
 var _ = require("lodash");
 var request = require("request");
+
 /*
 http://lecs.nike.co.kr/cart/createCart.lecs?goodsNo=NK31087402&itemSize=250&itemNo=NK31087402001&orderQuantity=1&connerNo=&deliveryHopeAdayMn=&deliveryExpensePolicyNo=503706&cartSectionCode=10&inflowDisposalNoSectionCode=10&inflowDisposalNo=NK1A49A01A04&masterDisposalNo=NK1A49A01A04&packageGoodsYN=N&packageGoodsNo=&packageGoodsCompulsoryQty=0
  */
 
 module.exports = {
-    getNK: function (type) {
+    getNK: function (type,CB) {
         var url = "https://spreadsheets.google.com/feeds/list/1cK3kzT2hJ88shFvENpV_FIozpKMAHFL7FhuyyQlUEXE/1/public/values?alt=json";
         request({url:url},function(err,res,body){
             var DB = JSON.parse(body);
@@ -30,13 +31,13 @@ module.exports = {
 
 
                 function checkReady(idx){
-                    var target = "http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo="+checks[idx].nk+"&itemColor="+checks[idx].style+"&goodsSalePrice=0&source=&orderNo=&orderDetailSn=";
+                    var target = "http://lecs.nike.co.kr/cart/getGoodsOptionInfo.lecs?goodsNo="+checks[idx].nk+"&itemColor="+checks[idx].style+"&goodsSalePrice=0";
 
                     request({url:target},function(err,res,body){
                         if(body==""){
                             console.log("[X]" + checks[idx].name);
                         }else{
-                            console.log("[O]" + checks[idx].name);
+                            console.log("[O]["+checks[idx].nk+"]" + checks[idx].name);
                         };
                         checkReadyNext();
                     });
@@ -57,10 +58,7 @@ module.exports = {
                 var soldReadys = _.filter(NK,function(o){
                     return o.name=="단품정보없음";
                 });
-
-
-
-                console.log(soldReadys.length);
+                CB.call(null,soldReadys);
             };
 
         });

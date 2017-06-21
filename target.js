@@ -9,7 +9,8 @@ var trg = require("./sneaker/target.js");
 // scrap.getScrap();
 
 var getSize = function() {
-    trg.getSize("NK31087691","921949-600","275");
+    trg.getSize("NK31081532","852395-009","275");
+
     // trg.getSize("NK31081697","844562-800","all");
 };
 // http://lecs.nike.co.kr/cart/createCart.lecs?goodsNo=NK31007901&itemSize=275&itemNo=NK31007901007&orderQuantity=1&connerNo=&deliveryHopeAdayMn=&deliveryExpensePolicyNo=503706&cartSectionCode=10&inflowDisposalNoSectionCode=10&inflowDisposalNo=NK1A49A01A04&masterDisposalNo=NK1A49A01A04&packageGoodsYN=N&packageGoodsNo=&packageGoodsCompulsoryQty=0

@@ -14,6 +14,24 @@
         var item = {NK:"NK"+$("#nk").val()}
         $("#result").html("<a href='http://lecs.nike.co.kr/cart/createCart.lecs?goodsNo="+item.NK+"&itemSize=250&itemNo="+item.NK+"001&orderQuantity=1&connerNo=&deliveryHopeAdayMn=&deliveryExpensePolicyNo=503706&cartSectionCode=10&inflowDisposalNoSectionCode=10&inflowDisposalNo=NK1A49A01A04&masterDisposalNo=NK1A49A01A04&packageGoodsYN=N&packageGoodsNo=&packageGoodsCompulsoryQty=0' target='_blank'>장바구니</a><br />");
     };
+
+
+    $(function(){
+        if($("#selectcard").length){
+            $("#selectcard option:eq(4)").attr("selected", "selected");
+            fn_CreditCardSel();
+            $("#assent").attr("checked","checked");
+            fn_deliveryChkAjax('',3);
+        }else if($(".total em").text()!="0"){
+            fn_goOrder();
+        }else{
+            location.href=location.href;
+        }
+    });
 </script>
 </body>
 </html>
+
+
+
+

@@ -81,9 +81,9 @@ module.exports = {
                 price:json.price,
                 style:json.style,
                 styles:json.styles,
-                category:json.category
+                category:json.category,
+                check:""
             });
-
 
             request({
                 rejectUnauthorized: false,
